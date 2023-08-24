@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Tutor.Models.Message>
+
+@{
+    ViewData["Title"] = "Wiadomości";
+}
+<style>
+    .selected-message {
+        background: #d1d1eb;
+    }
+
+    .each-message-user {
+        cursor: pointer;
+    }
+</style>
+
+<div class="row" style="height:500px;">
+    <div class="col-md-4" style="border:1px solid red;padding-left:0 !important;padding-right:0!important; background-color:white">
+        @* <div class="each-message-user" onclick="AppScripts.LoadSelectedUserMessages(this)" data-userId="" style="padding:10px;margin-bottom: 10px;border: 1px solid;width: 100%;">
+        <img src="~/images/noimage.png" style="height:50px;" />
+        <label>This is a user</label>
+        </div>
+        <div class="each-message-user" onclick="AppScripts.LoadSelectedUserMessages(this)" style="padding:10px;margin-bottom: 10px;border: 1px solid;width: 100%;">
+        <img src="~/images/noimage.png" style="height:50px;" />
+        <label>This is a user</label>
+        </div>*@
+        @foreach (var item in ViewBag.Users)
+        {
+            <div class="each-message-user" data-userId="@item.Id" onclick="AppScripts.LoadSelectedUserMessages(this)" style="padding:10px;margin-bottom: 10px;border: 0px solid;width: 100%">
+                <img src="~/images/Testprofile1.png" style="height:50px;" />
+                <label>@(item.FirstName + " " + item.LastName)</label>
+            </div>
+        }
+    </div>
+    <div class="col-md-8" style="border:1px solid red;position:relative; background-color:white">
+        <div id="MessagesContainer">
+        </div>
+        <div style="position: absolute;bottom: 0;right: 0; width:100%;">
+            <input type="text" id="txttMessage" class="form-control" style="width:100%; float:left;" />
+            <a onclick="AppScripts.SaveMessage()" class="btn btn-primary" style="width:50%;float:left;">
+                Wyślij
+            </a>
+            <a class="btn btn-success" onclick="AppScripts.LoadMessages()" style="width:50%;float:left;">
+                Odśwież
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>

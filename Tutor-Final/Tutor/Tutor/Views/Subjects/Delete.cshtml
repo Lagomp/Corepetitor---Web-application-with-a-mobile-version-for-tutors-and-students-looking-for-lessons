@@ -1,0 +1,27 @@
+﻿@model Tutor.Models.Subject
+
+@{
+    ViewData["Title"] = "Usuń przedmiot";
+}
+
+<h1 class="alert alert-primary text-black text-center">Usuń przedmiot</h1>
+
+<h3>Czy na pewno chcesz usunąć ten przedmiot z serwisu?</h3>
+<div>
+    <h4>Przedmiot</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+        <a class="btn btn-warning" asp-action="Index">Powrót</a>
+    </form>
+</div>

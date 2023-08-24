@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Tutor.DataTransferObjects.DashboardTeacherDto>
+
+@{
+    ViewData["Title"] = "Strona główna";
+}
+
+
+
+<div class="row mt-4">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <select asp-items="ViewBag.Subjects" class="form-control" id="fltrSubject">
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="number" id="fltrPrice" class="form-control" placeholder="Cena" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" id="fltrLocalization" placeholder="Lokalizacja" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-primary" onclick="FilterHomePage(true)">Filtruj</a>
+            <a class="btn btn-secondary" onclick="FilterHomePage(false)">Wyczyść</a>
+        </div>
+
+    </div>
+</div>
+<div class="row mt-4">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12 mt-5" style="margin-right:30px;">
+            <div class="row" style="width: 100%;border: solid 2px red;border-radius: 3%; min-height:250px; background-color: white">
+                <div class="col-md-3">
+                    <img class="card-img-top" style="height:230px; max-height:230px;min-height:230px;" src="~/images/Testprofile1.png" alt="Card image cap">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.TeacherName</h5>
+                        <p class="card-text"><strong>Przedmiot: </strong> @item.TeacherSubjects</p>
+                        <p class="card-text"><strong>Zarezerwowanych spotkań: </strong>@item.AlreadyEnrollments</p>
+                        <a href="/Enrollments/Create?tsId=@item.TeacherSubjectId" class="btn btn-primary">Zarezerwuj</a>
+                        <a href="/Messages" class="btn btn-primary">Wyślij wiadomość</a>
+                        <a href="/Ratings/Index?tId=@item.TeacherId" class="btn btn-secondary">Opinie</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    function FilterHomePage(isSearch) {
+        if (isSearch == true) {
+            let s = document.getElementById('fltrSubject').value;
+            let p = document.getElementById('fltrPrice').value;
+            let l = document.getElementById('fltrLocalization').value;
+
+            location.href = "/Home/Index?s=" + s + "&p=" + p + "&l=" + l;
+        } else {
+            location.href = "/Home/Index";
+        }
+    }
+</script>

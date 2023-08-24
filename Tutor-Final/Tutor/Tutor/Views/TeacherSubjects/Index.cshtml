@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Tutor.Models.TeacherSubject>
+
+@{
+    ViewData["Title"] = "Moje oferty";
+}
+
+<h1 class="alert alert-info text-black text-center">Moje oferty</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create">Dodaj ofertę</a>
+</p>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthlyFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalEnrollments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAvailable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthlyFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalEnrollments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject.Name)
+            </td>
+            <td>
+                <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> 
+                <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> 
+                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

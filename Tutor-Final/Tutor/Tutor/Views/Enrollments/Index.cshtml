@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Tutor.Models.Enrollment>
+
+@{
+    ViewData["Title"] = "Zarezerwowane spotkania";
+}
+
+<h1 class="alert alert-success text-black text-center">Zarezerwowane spotkania</h1>
+
+@*<p>
+    <a class="btn btn-outline-primary" asp-action="Create">Create New</a>
+</p>*@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeacherSubject)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @if (item.Status <= 0 || item.Status == EnrollmentStatus.Started)
+                    {
+                        <span>Rozpoczęte</span>
+                    }
+                    else if (item.Status == EnrollmentStatus.Cancelled)
+                    {
+                        <span>Anulowane</span>
+                    }
+                    else
+                    {
+                        <span>Zakończone</span>
+                    }
+                </td>
+                <td>
+                    @(item.Student.FirstName + " " + item.Student.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeacherSubject.SubjectId )
+                </td>
+                <td>
+                    @*<a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a>*@
+                    @if (item.Status == EnrollmentStatus.Started || item.Status == EnrollmentStatus.Started0)
+                    {
+                        <a class="btn btn-outline-danger" asp-action="Cancel" asp-route-id="@item.Id">Zrezygnuj</a>
+                        <a class="btn btn-outline-success" href="/Ratings/Create?eId=@item.Id">Ukończ</a>
+                    }
+
+
+                    @if (!User.IsInRole("Student"))
+                    {
+                        <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

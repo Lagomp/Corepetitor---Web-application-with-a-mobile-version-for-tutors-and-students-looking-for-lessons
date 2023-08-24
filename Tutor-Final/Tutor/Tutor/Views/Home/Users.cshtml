@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Tutor.DataTransferObjects.UserVM>
+
+@{
+    ViewData["Title"] = "Uczniowie";
+}
+
+<h1 class="alert alert-success text-black text-center">Uczniowie</h1>
+
+@*<p>
+    <a class="btn btn-outline-primary" asp-action="Create">Create New</a>
+</p>*@
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Imię i nazwisko użytkownika
+            </th>
+            <th>
+                Adres E-mail użytkownika
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+               <td>
+                    @if (item.IsBlocked)
+                    {
+                        <a href="/Home/Block?Id=@item.Id&b=false" class="btn btn-success">Odblokuj użytkownika</a>
+                    }
+                    else
+                    {
+                        <a href="/Home/Block?Id=@item.Id&b=true" class="btn btn-danger">Zablokuj użytkownika</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

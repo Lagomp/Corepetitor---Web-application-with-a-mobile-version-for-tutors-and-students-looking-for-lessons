@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Tutor.DataTransferObjects.MessageDto>
+
+
+@foreach (var item in Model)
+{
+    if (item.IsFromMessage)
+    {
+        <div class="" style="margin-bottom:0px !important;text-align:left;">
+            <p class="alert alert-primary mb-0">@item.MessageText</p>
+            @item.MessageTime.ToString("MM/dd/yyyy hh:mm:ss")
+        </div>
+    }
+    else
+    {
+        <div style="margin-top:1rem; text-align:right">
+            <p class="alert alert-secondary mb-0">@item.MessageText</p>
+            @item.MessageTime.ToString("MM/dd/yyyy hh:mm:ss")
+        </div>
+    }
+}
